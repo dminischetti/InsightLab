@@ -1,0 +1,32 @@
+[data-animate] {
+  will-change: opacity, transform;
+}
+
+[data-animate].is-visible {
+  transition-delay: 0.05s;
+}
+
+.chart-frame,
+.section-heading,
+.insight-card {
+  transition: box-shadow 0.4s ease, border-color 0.4s ease;
+}
+
+.insight-card:is(:hover, :focus-within) {
+  border-color: rgba(56, 189, 248, 0.35);
+  box-shadow: 0 22px 48px rgba(15, 23, 42, 0.35);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.001ms !important;
+    animation-duration: 0.001ms !important;
+  }
+
+  [data-animate] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
