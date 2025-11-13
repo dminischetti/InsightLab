@@ -47,11 +47,13 @@
             <div class="hero-panel" data-animate>
               <div class="hero-badge-row">
                 <span class="hero-badge">Full-stack data story</span>
+                <span class="hero-byline">By Dominic Minischetti — Full-Stack Developer &amp; Data Analyst</span>
               </div>
               <h1>
                 NYC Housing Dynamics
                 <span class="text-soft">(2010–2024)</span>
               </h1>
+              <p class="hero-subhead">Tracing fourteen years of rent, wage, and transit data to clarify where affordability pressure tightened across New York City.</p>
               <p class="hero-lead">
                 This portfolio piece blends engineered data pipelines with premium UI to explain how rents, wages, and transit
                 access changed together across New York City. I built every layer—from ingestion and cleaning to interactive
@@ -101,7 +103,7 @@
               </div>
             </div>
 
-            <aside class="hero-aside" data-animate aria-label="Key metrics">
+            <aside class="hero-aside" data-animate data-hero-parallax aria-label="Key metrics">
               <div class="stat-grid">
                 <div class="stat-card">
                   <span class="stat-label">Borough rent spread since 2010</span>
@@ -157,6 +159,7 @@
             <div class="section-header" data-animate>
               <p class="section-eyebrow">Context</p>
               <h2 id="context-title">Why affordability pressure persisted</h2>
+              <p class="section-summary">A citywide snapshot linking rent pressure to transit access and wage stagnation.</p>
               <p class="section-lead">
                 Rent declines after the Great Recession and the pandemic were short-lived. Transit access and desirability kept
                 pressure on prices while wages lagged.
@@ -181,6 +184,7 @@
             <div class="section-header" data-animate>
               <p class="section-eyebrow">Method</p>
               <h2 id="method-title">Pipeline from collection to visualization</h2>
+              <p class="section-summary">Every chart on this page is generated from a reproducible analytical workflow.</p>
               <p class="section-lead">
                 Every metric is reproducible. The pipeline collects, cleans, analyzes, and packages the story in a modular way
                 that ships well on the web.
@@ -279,6 +283,49 @@ load_sources([
                   </table>
                 </div>
               </div>
+              <aside class="pipeline-overview" data-animate aria-label="Data pipeline overview">
+                <h3>Data Pipeline Overview</h3>
+                <div class="pipeline-columns">
+                  <div>
+                    <h4>Sources</h4>
+                    <ul>
+                      <li>NYC Open Data housing indicators</li>
+                      <li>ACS income estimates</li>
+                      <li>BLS QCEW wage extracts</li>
+                      <li>MTA GTFS transit feeds</li>
+                      <li>DOB permit filings</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h4>Transformations</h4>
+                    <ul>
+                      <li>CPI normalization to 2024 USD</li>
+                      <li>Transit index + zoning deltas</li>
+                      <li>Outlier trimming &amp; rolling medians</li>
+                      <li>DuckDB joins with schema checks</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h4>Visualization stack</h4>
+                    <ul>
+                      <li>Chart.js with custom themes</li>
+                      <li>Declarative JSON payloads</li>
+                      <li>Intersection-aware rendering</li>
+                      <li>Accessible narration sync</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h4>Tools</h4>
+                    <ul>
+                      <li>Python, DuckDB, Pandas</li>
+                      <li>dbt-style SQL macros</li>
+                      <li>Vanilla JS modules</li>
+                      <li>CSS custom properties</li>
+                    </ul>
+                  </div>
+                </div>
+                <pre aria-hidden="true"><code>raw &rarr; clean &rarr; model &rarr; narrate</code></pre>
+              </aside>
             </div>
           </div>
         </section>
@@ -288,6 +335,7 @@ load_sources([
             <div class="section-header" data-animate>
               <p class="section-eyebrow">Insights</p>
               <h2 id="insights-title">Four premium views for stakeholders</h2>
+              <p class="section-summary">Four interactive dashboards distill the borough story for rapid executive review.</p>
               <p class="section-lead">
                 The visualization layer is intentionally minimal: larger containers, focused color, and narrative cues near each
                 chart so the data speaks first.
@@ -310,6 +358,10 @@ load_sources([
                     aria-label="2024 bar chart comparing median rent across NYC boroughs; Manhattan leads and Staten Island sits lowest."
                   ></canvas>
                 </div>
+                <p class="chart-insight" role="note">
+                  <span class="insight-kicker">This chart shows that</span>
+                  <span data-narrative="growth">Manhattan maintains the highest monthly rent while Staten Island remains most affordable.</span>
+                </p>
                 <div class="chart-meta">
                   <div class="meta-block">
                     <span class="meta-label">Source</span>
@@ -342,6 +394,10 @@ load_sources([
                 <div class="chart-surface" data-chart-surface>
                   <div class="chart-frame" data-chart-multiples aria-live="polite"></div>
                 </div>
+                <p class="chart-insight" role="note">
+                  <span class="insight-kicker">This chart shows that</span>
+                  <span data-narrative="multiples">Each borough shows a steady climb with Brooklyn and Queens accelerating fastest after 2012.</span>
+                </p>
                 <div class="chart-meta">
                   <div class="meta-block">
                     <span class="meta-label">Source</span>
@@ -395,6 +451,10 @@ load_sources([
                     aria-label="Bubble chart linking income and rent with transit index; higher subway access clusters in high-rent borough-years."
                   ></canvas>
                 </div>
+                <p class="chart-insight" role="note">
+                  <span class="insight-kicker">This chart shows that</span>
+                  <span data-narrative="correlation">Rent tracks income, but high-transit borough-years sit above the trend, tightening budgets.</span>
+                </p>
                 <div class="chart-meta">
                   <div class="meta-block">
                     <span class="meta-label">Source</span>
@@ -431,6 +491,10 @@ load_sources([
                     aria-label="Facet heatmap showing year-over-year rent change pulses by borough with two surges around 2013 and 2022."
                   ></canvas>
                 </div>
+                <p class="chart-insight" role="note">
+                  <span class="insight-kicker">This chart shows that</span>
+                  <span data-narrative="volatility">Two major rent spikes frame the period—the post-recession run-up and the 2021 rebound.</span>
+                </p>
                 <div class="chart-meta">
                   <div class="meta-block">
                     <span class="meta-label">Source</span>
@@ -462,6 +526,7 @@ load_sources([
             <div class="section-header" data-animate>
               <p class="section-eyebrow">Findings</p>
               <h2 id="findings-title">Where the analysis lands</h2>
+              <p class="section-summary">Executive-ready takeaways distill the borough dynamics for quick decisions.</p>
               <p class="section-lead">Concise bullets summarize the core narrative for decision makers.</p>
             </div>
             <div class="section-body" data-animate>
@@ -481,6 +546,7 @@ load_sources([
             <div class="section-header" data-animate>
               <p class="section-eyebrow">Limitations</p>
               <h2 id="limitations-title">Constraints &amp; next steps</h2>
+              <p class="section-summary">Guardrails that keep the narrative honest and highlight future work.</p>
               <p class="section-lead">Transparency keeps the work credible and ready for stakeholder scrutiny.</p>
             </div>
             <div class="section-body" data-animate>
@@ -527,6 +593,7 @@ load_sources([
             <div class="section-header" data-animate>
               <p class="section-eyebrow">References</p>
               <h2 id="references-title">Source register</h2>
+              <p class="section-summary">Direct links to every dataset powering this case study.</p>
               <p class="section-lead">Every insight maps to a public dataset with reproducible joins.</p>
             </div>
             <div class="references-table" data-animate>
@@ -641,6 +708,7 @@ load_sources([
           <strong>InsightLab</strong>
           <p>Designed, engineered, and analyzed by Dominic Minischetti.</p>
           <p>Independent study • © 2025</p>
+          <a class="footer-cta" href="https://dominicminischetti.com" target="_blank" rel="noopener">See more projects by Dominic Minischetti →</a>
         </div>
       </footer>
     </div>
