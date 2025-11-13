@@ -1,6 +1,6 @@
 import { appState, setData, setSummary, destroyAllCharts } from './modules/state.js';
 import { initTheme } from './modules/theme.js';
-import { initViewportAnimations, initProgressBar } from './modules/viewport.js';
+import { initViewportAnimations, initProgressBar, initHeroParallax } from './modules/viewport.js';
 import { loadData, SCATTER_PERIODS } from './modules/data.js';
 import { renderBarChart } from './modules/charts/barChart.js';
 import { renderMultiples } from './modules/charts/multiplesChart.js';
@@ -44,6 +44,7 @@ const bootstrap = async () => {
   initTheme(refreshAfterTheme);
   initViewportAnimations();
   initProgressBar();
+  initHeroParallax();
   initSmoothScroll();
   initKeyboardTabs();
   initMetricObservers();

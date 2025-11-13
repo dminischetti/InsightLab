@@ -43,6 +43,11 @@ export const syncNarrative = () => {
     rentTrajectories.textContent = `${topGrowth.borough} led growth at ${formatPercent(topGrowth.pct)} since ${topGrowth.startYear}, with ${topGrowth.endYear} rents reaching $${Math.round(topGrowth.endValue).toLocaleString()}.`;
   }
 
+  const multiplesNarrative = document.querySelector('[data-narrative="multiples"]');
+  if (multiplesNarrative && rentTrajectories?.textContent) {
+    multiplesNarrative.textContent = rentTrajectories.textContent;
+  }
+
   const transitTakeaway = document.querySelector('[data-takeaway="rent-transit"]');
   if (transitTakeaway && summary.correlations) {
     const incomeCorr = summary.correlations.rent_income ?? null;
@@ -70,6 +75,11 @@ export const syncNarrative = () => {
     if (Number.isFinite(maxSpike.value) && Number.isFinite(minSpike.value)) {
       heatmapTakeaway.textContent = `Peak surge hits ${maxSpike.borough} in ${maxSpike.year} at ${formatPercent(maxSpike.value)}, while ${minSpike.borough} saw the deepest cooldown (${formatPercent(minSpike.value)}).`;
     }
+  }
+
+  const volatilityNarrative = document.querySelector('[data-narrative="volatility"]');
+  if (volatilityNarrative && heatmapTakeaway?.textContent) {
+    volatilityNarrative.textContent = heatmapTakeaway.textContent;
   }
 
   const heatmapAlt = document.querySelector('[data-takeaway="heatmap"]');

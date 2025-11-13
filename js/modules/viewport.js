@@ -36,3 +36,47 @@ export const initProgressBar = () => {
   window.addEventListener('scroll', update, { passive: true });
   update();
 };
+
+export const initHeroParallax = () => {
+  const target = document.querySelector('[data-hero-parallax]');
+  if (!target) return;
+  if (typeof window === 'undefined') return;
+
+  const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+  if (motionQuery.matches) {
+    target.style.setProperty('--hero-offset', '0px');
+    return;
+  }
+
+  let rafId = null;
+  const updateOffset = () => {
+    const rect = target.getBoundingClientRect();
+    const offset = Math.max(-48, Math.min(48, rect.top * -0.06));
+    target.style.setProperty('--hero-offset', `${offset.toFixed(2)}px`);
+    rafId = null;
+  };
+
+  const handleScroll = () => {
+    if (rafId !== null) return;
+    rafId = window.requestAnimationFrame(updateOffset);
+  };
+
+  updateOffset();
+  window.addEventListener('scroll', handleScroll, { passive: true });
+
+  const handleMotionChange = (event) => {
+    if (event.matches) {
+      target.style.setProperty('--hero-offset', '0px');
+      window.removeEventListener('scroll', handleScroll);
+    } else {
+      updateOffset();
+      window.addEventListener('scroll', handleScroll, { passive: true });
+    }
+  };
+
+  if (typeof motionQuery.addEventListener === 'function') {
+    motionQuery.addEventListener('change', handleMotionChange);
+  } else if (typeof motionQuery.addListener === 'function') {
+    motionQuery.addListener(handleMotionChange);
+  }
+};
