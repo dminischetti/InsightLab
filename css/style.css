@@ -727,13 +727,13 @@
     color: var(--text-strong);
   }
 
-  [data-animate] {
+  .has-js [data-animate] {
     opacity: 0;
     transform: translateY(28px);
     transition: opacity 480ms ease, transform 480ms ease;
   }
 
-  [data-animate].is-visible {
+  .has-js [data-animate].is-visible {
     opacity: 1;
     transform: none;
   }

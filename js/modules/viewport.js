@@ -2,6 +2,11 @@ export const initViewportAnimations = () => {
   const animated = document.querySelectorAll('[data-animate]');
   if (!animated.length) return;
 
+  if (typeof window === 'undefined' || !('IntersectionObserver' in window)) {
+    animated.forEach((element) => element.classList.add('is-visible'));
+    return;
+  }
+
   const observer = new IntersectionObserver(
     (entries, obs) => {
       entries.forEach((entry) => {
