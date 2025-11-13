@@ -1,5 +1,5 @@
 const createState = () => ({
-  theme: localStorage.getItem('insightlab-theme') || 'dark',
+  theme: 'dark',
   charts: new Map(),
   data: null,
   summary: null,
@@ -33,7 +33,6 @@ export const destroyAllCharts = () => {
 
 export const setTheme = (theme) => {
   appState.theme = theme;
-  localStorage.setItem('insightlab-theme', theme);
 };
 
 export const setData = (payload) => {

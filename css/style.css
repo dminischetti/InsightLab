@@ -378,23 +378,6 @@
     color: var(--accent-primary);
   }
 
-  .theme-toggle {
-    width: 2.6rem;
-    height: 2.6rem;
-    border-radius: 0.85rem;
-    border: 1px solid var(--border-soft);
-    background: var(--surface-1);
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .theme-toggle:hover,
-  .theme-toggle:focus-visible {
-    border-color: var(--accent-primary);
-    color: var(--accent-primary);
-  }
-
   .hero-lead {
     font-size: 1.1rem;
     color: var(--text-muted);
