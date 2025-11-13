@@ -12,6 +12,8 @@ import { initMetricObservers, updateMetrics } from './modules/metrics.js';
 import { syncNarrative } from './modules/copy.js';
 import { initSmoothScroll, initKeyboardTabs } from './modules/interactions.js';
 
+document.documentElement.classList.add('has-js');
+
 const getActivePeriod = () =>
   document.querySelector('[data-period-tab].is-active')?.getAttribute('data-period-tab') || SCATTER_PERIODS[0].key;
 
