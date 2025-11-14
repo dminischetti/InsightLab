@@ -4,6 +4,15 @@
   shared by the narrative column, chart cards, and metadata sidebar.
 */
 
+/*
+  Responsive audit notes (2025-03-07):
+  - Default two-column layout-grid constrains the main column on phones and can introduce horizontal scroll.
+  - Masthead navigation pills wrap unpredictably on narrow widths and crowd the header.
+  - Sticky meta-column with fixed width clashes with mobile stacking and eats horizontal space.
+  - Chart canvas heights use fixed clamps that feel cramped on desktops and oversized on very small devices.
+  - Typography and spacing tokens are static, so headings and gutters do not scale smoothly between breakpoints.
+*/
+
 :root {
   color-scheme: dark;
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -25,14 +34,14 @@
 
   --radius-base: 18px;
   --radius-small: 12px;
-  --space-2xs: 0.4rem;
-  --space-xs: 0.65rem;
-  --space-sm: 0.9rem;
-  --space-md: 1.4rem;
-  --space-lg: 2rem;
-  --space-xl: 3rem;
-  --max-content-width: min(48rem, 100%);
-  --max-layout-width: min(1200px, 92vw);
+  --space-2xs: clamp(0.32rem, 0.28rem + 0.35vw, 0.5rem);
+  --space-xs: clamp(0.55rem, 0.48rem + 0.6vw, 0.9rem);
+  --space-sm: clamp(0.85rem, 0.76rem + 0.7vw, 1.2rem);
+  --space-md: clamp(1.3rem, 1.12rem + 1.1vw, 1.9rem);
+  --space-lg: clamp(1.8rem, 1.58rem + 1.6vw, 2.6rem);
+  --space-xl: clamp(2.4rem, 2.1rem + 2.4vw, 3.4rem);
+  --max-content-width: clamp(32rem, 85vw, 46rem);
+  --max-layout-width: min(1080px, 94vw);
 
   --transition-base: 220ms ease;
 }
@@ -44,8 +53,8 @@
 body {
   margin: 0;
   font-family: var(--font-sans);
-  font-size: clamp(1rem, 0.98rem + 0.15vw, 1.05rem);
-  line-height: 1.65;
+  font-size: clamp(1rem, 0.95rem + 0.25vw, 1.08rem);
+  line-height: 1.7;
   background: var(--bg-page);
   color: var(--color-text-muted);
 }
@@ -111,9 +120,11 @@ a:focus-visible {
 }
 
 .site-frame {
-  width: var(--max-layout-width);
+  width: min(100%, var(--max-layout-width));
   margin-inline: auto;
-  padding: clamp(1.5rem, 2vw, 2.5rem) clamp(1.2rem, 2vw, 2.5rem) var(--space-xl);
+  padding: clamp(1.4rem, 1.1rem + 2.5vw, 2.6rem) clamp(1rem, 0.8rem + 3vw, 2.5rem) var(--space-xl);
+  display: grid;
+  gap: var(--space-xl);
 }
 
 .masthead {
@@ -130,6 +141,12 @@ a:focus-visible {
   max-width: var(--max-content-width);
 }
 
+.masthead__title,
+.section__header h2,
+.meta-card h2 {
+  text-wrap: balance;
+}
+
 .masthead__kicker {
   text-transform: uppercase;
   letter-spacing: 0.32em;
@@ -140,7 +157,7 @@ a:focus-visible {
 .masthead__title {
   margin: 0;
   font-family: var(--font-serif);
-  font-size: clamp(2.2rem, 1.8rem + 1.8vw, 3.1rem);
+  font-size: clamp(2.2rem, 1.7rem + 2.5vw, 3.2rem);
   color: var(--color-text);
   letter-spacing: -0.01em;
 }
@@ -162,12 +179,14 @@ a:focus-visible {
 
 .masthead__nav {
   margin-top: var(--space-md);
+  border-top: 1px solid var(--color-border-soft);
+  padding-top: var(--space-sm);
 }
 
 .masthead__nav ul {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-sm);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: var(--space-2xs);
   padding: 0;
   margin: 0;
   list-style: none;
@@ -177,12 +196,14 @@ a:focus-visible {
   display: inline-flex;
   align-items: center;
   gap: var(--space-2xs);
-  padding: 0.35rem 0.8rem;
+  justify-content: center;
+  padding: 0.4rem 0.8rem;
   background: rgba(255, 255, 255, 0.03);
   border-radius: 999px;
   border: 1px solid transparent;
   font-size: 0.9rem;
   color: var(--color-text-soft);
+  width: 100%;
 }
 
 .masthead__nav a:hover,
@@ -193,9 +214,9 @@ a:focus-visible {
 
 .masthead__stats {
   margin-top: var(--space-lg);
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
   gap: var(--space-md);
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
   color: var(--color-text-soft);
 }
 
@@ -215,7 +236,6 @@ a:focus-visible {
 
 .layout-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(260px, 320px);
   gap: var(--space-xl);
   margin-top: var(--space-xl);
 }
@@ -229,9 +249,7 @@ a:focus-visible {
   display: grid;
   gap: var(--space-lg);
   align-content: start;
-  position: sticky;
-  top: 1.5rem;
-  height: fit-content;
+  position: static;
 }
 
 .section {
@@ -258,7 +276,7 @@ a:focus-visible {
 .section__header h2 {
   margin: 0;
   font-family: var(--font-serif);
-  font-size: clamp(1.6rem, 1.4rem + 1vw, 2.1rem);
+  font-size: clamp(1.55rem, 1.35rem + 1.4vw, 2.2rem);
   color: var(--color-text);
 }
 
@@ -289,7 +307,7 @@ a:focus-visible {
   background: var(--bg-card-alt);
   border: 1px solid var(--color-border-soft);
   border-radius: var(--radius-base);
-  padding: var(--space-md);
+  padding: clamp(1.1rem, 0.9rem + 1vw, var(--space-md));
   display: grid;
   gap: var(--space-sm);
 }
@@ -315,6 +333,7 @@ pre {
   padding: var(--space-md);
   display: grid;
   gap: var(--space-sm);
+  overflow-x: auto;
 }
 
 .table-card h3 {
@@ -326,6 +345,7 @@ pre {
 table {
   width: 100%;
   border-collapse: collapse;
+  min-width: 460px;
 }
 
 th,
@@ -375,7 +395,7 @@ tr:last-child td {
 .chart-card__header h3 {
   margin: 0;
   font-family: var(--font-serif);
-  font-size: 1.5rem;
+  font-size: clamp(1.3rem, 1.15rem + 0.9vw, 1.7rem);
   color: var(--color-text);
 }
 
@@ -392,7 +412,7 @@ tr:last-child td {
 
 .chart-card__canvas {
   position: relative;
-  height: clamp(280px, 35vh, 360px);
+  min-height: clamp(220px, 55vw, 360px);
 }
 
 .chart-card__canvas canvas {
@@ -466,6 +486,12 @@ tr:last-child td {
   gap: var(--space-sm);
 }
 
+.meta-card h2 {
+  margin: 0;
+  font-size: clamp(1.2rem, 1.08rem + 0.8vw, 1.6rem);
+  color: var(--color-text);
+}
+
 .meta-card__lead {
   margin: 0;
   color: var(--color-text-muted);
@@ -503,7 +529,7 @@ tr:last-child td {
 }
 
 .site-footer {
-  margin-top: var(--space-xl);
+  margin-top: 0;
   text-align: center;
   color: var(--color-text-soft);
   display: grid;
@@ -527,45 +553,73 @@ tr:last-child td {
   transform: none;
 }
 
-@media (max-width: 1024px) {
-  .layout-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .meta-column {
-    position: static;
-    order: -1;
+@media (min-width: 640px) {
+  :root {
+    --max-layout-width: min(1120px, 92vw);
   }
 
   .masthead__nav ul {
-    gap: var(--space-2xs);
-  }
-}
-
-@media (max-width: 680px) {
-  .site-frame {
-    width: min(96vw, 720px);
-    padding: var(--space-md) var(--space-sm) var(--space-xl);
-  }
-
-  .masthead {
-    padding: var(--space-md);
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   }
 
   .masthead__stats {
     gap: var(--space-sm);
   }
+}
 
-  .section {
-    padding: var(--space-md);
+@media (min-width: 768px) {
+  .site-frame {
+    padding-inline: clamp(1.5rem, 1rem + 2vw, 3rem);
   }
 
-  .chart-card {
-    padding: var(--space-md);
+  .masthead {
+    padding: var(--space-lg);
+  }
+
+  .masthead__nav ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: var(--space-2xs);
+  }
+
+  .masthead__nav a {
+    width: auto;
   }
 
   .chart-card__canvas {
-    height: clamp(240px, 45vh, 320px);
+    min-height: clamp(260px, 38vw, 420px);
+  }
+}
+
+@media (min-width: 1024px) {
+  .layout-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(260px, 320px);
+    align-items: start;
+  }
+
+  .meta-column {
+    position: sticky;
+    top: 1.5rem;
+    height: fit-content;
+  }
+
+  .masthead__nav ul {
+    gap: var(--space-sm);
+  }
+}
+
+@media (min-width: 1280px) {
+  :root {
+    --max-layout-width: min(1180px, 88vw);
+  }
+
+  .layout-grid {
+    column-gap: clamp(2.5rem, 2rem + 1.5vw, 3.5rem);
+  }
+
+  .chart-card__canvas {
+    min-height: clamp(300px, 28vw, 460px);
   }
 }
 
