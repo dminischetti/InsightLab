@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>NYC Housing Dynamics (2010–2024)</title>
+    <meta
+      name="description"
+      content="Premium dark-mode case study demonstrating full-stack engineering and analytical storytelling for NYC housing data from 2010 to 2024."
+    />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://dminischetti.github.io/insightlab/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="NYC Housing Dynamics (2010–2024)" />
+    <meta
+      property="og:description"
+      content="Premium dark-mode case study demonstrating full-stack engineering and analytical storytelling for NYC housing data from 2010 to 2024."
+    />
+    <meta property="og:url" content="https://dminischetti.github.io/insightlab/" />
+    <meta property="og:image" content="https://dminischetti.github.io/insightlab/assets/logo.svg" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="NYC Housing Dynamics (2010–2024)" />
+    <meta
+      name="twitter:description"
+      content="Premium dark-mode case study demonstrating full-stack engineering and analytical storytelling for NYC housing data from 2010 to 2024."
+    />
+    <meta name="theme-color" content="#0b1221" />
+    <link rel="icon" type="image/svg+xml" href="./assets/logo.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fraunces:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./css/insightlab.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js" defer></script>
+    <script type="module" src="./js/main.js" defer></script>
+  </head>
+  <body data-page="index">
+    <a class="skip-link" href="#main">Skip to main content</a>
+    <!--
+      Layout rebuilt in 2025-10 to provide a clean, minimal experience. The structure below keeps
+      navigation lightweight while centering the narrative column and reserving space for analyst
+      meta information.
+    -->
+    <div class="site-frame">
+      <header class="masthead" role="banner">
+        <div class="masthead__inner">
+          <div class="masthead__title-group">
+            <p class="masthead__kicker">InsightLab · Case Study</p>
+            <h1 class="masthead__title">NYC Housing Dynamics <span class="masthead__title-note">2010–2024</span></h1>
+            <p class="masthead__byline">By Dominic Minischetti - Full-Stack Developer &amp; Data Analyst</p>
+            <p class="masthead__lead">
+              A calm, executive-ready walkthrough of how rents, wages, and transit access tightened affordability across New York
+              City. Every chart, number, and narrative cue is backed by a custom Python and DuckDB pipeline.
+            </p>
+          </div>
+          <nav class="masthead__nav" aria-label="Section navigation">
+            <ul>
+              <li><a href="#context">Context</a></li>
+              <li><a href="#method">Method</a></li>
+              <li><a href="#insights">Insights</a></li>
+              <li><a href="#findings">Findings</a></li>
+              <li><a href="#limitations">Limitations</a></li>
+              <li><a href="#references">References</a></li>
+              <li><a href="#how-i-built-this">Build log</a></li>
+            </ul>
+          </nav>
+          <div class="masthead__stats" role="list" aria-label="Key outcome metrics">
+            <div role="listitem">
+              <span class="stat-label">Latest data year</span>
+              <span class="stat-value" data-stat="latest-year">-</span>
+            </div>
+            <div role="listitem">
+              <span class="stat-label">Rent ceiling</span>
+              <span class="stat-value" data-stat="rent-ceiling">-</span>
+            </div>
+            <div role="listitem">
+              <span class="stat-label">Spread vs. lowest borough</span>
+              <span class="stat-value" data-stat="rent-spread">-</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <div class="layout-grid">
+        <main id="main" class="content-column">
+          <section id="context" class="section" aria-labelledby="context-title">
+            <header class="section__header">
+              <p class="section__eyebrow">Context</p>
+              <h2 id="context-title">Why affordability pressure persisted</h2>
+              <p class="section__intro">
+                Rent declines after the Great Recession and the pandemic were short-lived. Transit access and desirability kept
+                pressure on prices while wages lagged.
+              </p>
+            </header>
+            <div class="section__body">
+              <p>
+                New York is my family's home and a recurring proving ground for honest data work. To move beyond headlines, I
+                assembled borough-level feeds covering rents, wages, permits, and rezonings. Rents eased only briefly, while
+                subway-rich areas stayed desirable and incomes grew slowly.
+              </p>
+              <p>
+                Each chart below uses a shared analytical spine: CPI-adjusted rents, harmonized borough lookups, and transit
+                proximity scores. The narrative leans on the data itself-no invented numbers, just organized evidence.
+              </p>
+            </div>
+          </section>
+
+          <section id="method" class="section" aria-labelledby="method-title">
+            <header class="section__header">
+              <p class="section__eyebrow">Method</p>
+              <h2 id="method-title">Pipeline from collection to visualization</h2>
+              <p class="section__intro">
+                Every metric is reproducible. The pipeline collects, cleans, analyzes, and packages the story in a modular way that
+                ships well on the web.
+              </p>
+            </header>
+            <div class="section__body">
+              <ul class="bullet-list">
+                <li><strong>Data sources:</strong> ACS one-year tables, NYC Open Data housing feeds, BLS wage files, DOB permits, and DCP rezonings.</li>
+                <li><strong>Cleaning:</strong> CPI normalization to 2024 dollars, outlier trimming, borough reconciliation, and rolling medians to fill short gaps.</li>
+                <li><strong>Feature engineering:</strong> Transit proximity index, zoning change counts, and inflation-aware wage bands to link spatial and temporal shifts.</li>
+                <li><strong>Quality checks:</strong> Reconciled against NYC Housing and Vacancy Survey, regression diagnostics, and flagged anomalies for manual review.</li>
+              </ul>
+              <div class="code-block" aria-label="Processing logic overview">
+                <h3>Processing logic (condensed pseudocode)</h3>
+                <pre><code>load_sources([
+  'nyc_rent.csv',
+  'acs_income.csv',
+  'qcew_wages.csv',
+  'mta_gtfs.zip',
+  'dob_permits.csv'
+])
+  .harmonize_geo_keys()
+  .cpi_adjust(base_year=2024)
+  .build_transit_index(distance_threshold=800)
+  .aggregate(level='borough', metrics=['median_rent','median_income'])
+  .emit_payloads(['viz_payload.json','derived_summary.json'])</code></pre>
+              </div>
+              <div class="table-card" role="group" aria-label="Methods and transformations summary">
+                <h3>Methods &amp; transformations</h3>
+                <table>
+                  <thead>
+                    <tr>
+                      <th scope="col">Stage</th>
+                      <th scope="col">Technique</th>
+                      <th scope="col">Purpose</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Normalization</td>
+                      <td>CPI indexing &amp; z-score outlier removal</td>
+                      <td>Comparable rent and wage signals across 14 years.</td>
+                    </tr>
+                    <tr>
+                      <td>Feature engineering</td>
+                      <td>Transit index, zoning delta counts</td>
+                      <td>Capture non-rent drivers that influence borough premiums.</td>
+                    </tr>
+                    <tr>
+                      <td>Modeling</td>
+                      <td>OLS &amp; Pearson correlation</td>
+                      <td>Quantify wage vs. rent tension and transit premiums.</td>
+                    </tr>
+                    <tr>
+                      <td>QA</td>
+                      <td>Cross-check vs. HVS + manual anomaly review</td>
+                      <td>Ensure replicability before exporting visual payloads.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+
+          <section id="insights" class="section" aria-labelledby="insights-title">
+            <header class="section__header">
+              <p class="section__eyebrow">Insights</p>
+              <h2 id="insights-title">Four premium views for stakeholders</h2>
+              <p class="section__intro">
+                The visualization layer stays minimal: large canvases, focused color, and narrative cues positioned with each
+                chart so the data speaks first.
+              </p>
+            </header>
+            <div class="chart-grid">
+              <article class="chart-card js-reveal" data-chart="bar">
+                <header class="chart-card__header">
+                  <p class="chart-card__eyebrow">View 01</p>
+                  <h3>Median rent by borough (2024 USD/month)</h3>
+                  <p class="chart-card__summary">
+                    A clean leaderboard showing where rent levels finished in 2024 and how far boroughs sit from Manhattan's premium.
+                  </p>
+                </header>
+                <p class="chart-card__note">What this shows: <span data-narrative="bar">Manhattan maintains the highest monthly rent while Staten Island remains most affordable.</span></p>
+                <div class="chart-card__canvas">
+                  <canvas id="chart-bar" role="img" aria-label="2024 bar chart comparing median rent across NYC boroughs"></canvas>
+                </div>
+                <p class="chart-card__fallback" data-chart-fallback="bar" hidden>Chart unavailable. Median rents are still summarized in the findings below.</p>
+                <dl class="chart-card__meta">
+                  <div>
+                    <dt>Source</dt>
+                    <dd>NYC Open Data housing indicators (2010–2024)</dd>
+                  </div>
+                  <div>
+                    <dt>Method</dt>
+                    <dd>CPI-adjusted medians aggregated to borough level</dd>
+                  </div>
+                  <div>
+                    <dt>Why it matters</dt>
+                    <dd>Establishes the affordability baseline before exploring trajectories.</dd>
+                  </div>
+                </dl>
+              </article>
+
+              <article class="chart-card js-reveal" data-chart="line">
+                <header class="chart-card__header">
+                  <p class="chart-card__eyebrow">View 02</p>
+                  <h3>Median rent trajectories (2010–2024)</h3>
+                  <p class="chart-card__summary">
+                    Multi-line trendlines show which boroughs accelerated fastest after 2012 while maintaining a shared axis for comparison.
+                  </p>
+                </header>
+                <p class="chart-card__note">What this shows: <span data-narrative="line">Each borough shows a steady climb with Brooklyn and Queens accelerating fastest after 2012.</span></p>
+                <div class="chart-card__canvas">
+                  <canvas id="chart-line" role="img" aria-label="Line chart of median rent trajectories by borough"></canvas>
+                </div>
+                <p class="chart-card__fallback" data-chart-fallback="line" hidden>Trendlines could not render. The written summary still captures the acceleration story.</p>
+                <dl class="chart-card__meta">
+                  <div>
+                    <dt>Source</dt>
+                    <dd>NYC Open Data housing indicators (2010–2024)</dd>
+                  </div>
+                  <div>
+                    <dt>Method</dt>
+                    <dd>Rolling medians with light smoothing to show direction without noise</dd>
+                  </div>
+                  <div>
+                    <dt>Why it matters</dt>
+                    <dd>Highlights inflection points that shape affordability narratives.</dd>
+                  </div>
+                </dl>
+              </article>
+
+              <article class="chart-card js-reveal" data-chart="scatter">
+                <header class="chart-card__header">
+                  <p class="chart-card__eyebrow">View 03</p>
+                  <h3>Income vs. rent with transit weight</h3>
+                  <p class="chart-card__summary">
+                    Bubble size shows transit access. Tabs let stakeholders inspect different time windows as the relationship evolves.
+                  </p>
+                </header>
+                <div class="chart-card__controls" role="tablist" aria-label="Income versus rent views">
+                  <button type="button" class="chart-tab is-active" data-period-tab="2010-2013" aria-selected="true">2010–2013</button>
+                  <button type="button" class="chart-tab" data-period-tab="2014-2016" aria-selected="false">2014–2016</button>
+                  <button type="button" class="chart-tab" data-period-tab="2017-2020" aria-selected="false">2017–2020</button>
+                  <button type="button" class="chart-tab" data-period-tab="2021-2024" aria-selected="false">2021–2024</button>
+                </div>
+                <p class="chart-card__note">What this shows: <span data-narrative="scatter">Rent tracks income, but high-transit borough-years sit above the trend, tightening budgets.</span></p>
+                <div class="chart-card__canvas">
+                  <canvas id="chart-scatter" role="img" aria-label="Bubble chart linking income and rent with transit index"></canvas>
+                </div>
+                <p class="chart-card__fallback" data-chart-fallback="scatter" hidden>The scatter view is unavailable. Bubble insights remain described in the narrative.</p>
+                <dl class="chart-card__meta">
+                  <div>
+                    <dt>Source</dt>
+                    <dd>ACS, MTA GTFS, and NYC Open Data (2010–2024)</dd>
+                  </div>
+                  <div>
+                    <dt>Method</dt>
+                    <dd>Pearson correlation + transit weighting with borough clusters</dd>
+                  </div>
+                  <div>
+                    <dt>Why it matters</dt>
+                    <dd>Shows how access premiums compress renter budgets across years.</dd>
+                  </div>
+                </dl>
+              </article>
+
+              <article class="chart-card js-reveal" data-chart="heatmap">
+                <header class="chart-card__header">
+                  <p class="chart-card__eyebrow">View 04</p>
+                  <h3>Rent change pulses (YoY %)</h3>
+                  <p class="chart-card__summary">
+                    A heat-style stacked bar view reveals surges that frame the narrative: the post-recession run-up and the 2021 rebound.
+                  </p>
+                </header>
+                <p class="chart-card__note">What this shows: <span data-narrative="heatmap">Two major rent spikes frame the period-the post-recession run-up and the 2021 rebound.</span></p>
+                <div class="chart-card__canvas">
+                  <canvas id="chart-heatmap" role="img" aria-label="Stacked bar heatmap of rent change pulses by borough"></canvas>
+                </div>
+                <p class="chart-card__fallback" data-chart-fallback="heatmap" hidden>The rent change pulses view is unavailable. Key surges are still listed in the findings.</p>
+                <dl class="chart-card__meta">
+                  <div>
+                    <dt>Source</dt>
+                    <dd>NYC Open Data housing indicators (2011–2024)</dd>
+                  </div>
+                  <div>
+                    <dt>Method</dt>
+                    <dd>Year-over-year change with volatility highlighting ±6% thresholds</dd>
+                  </div>
+                  <div>
+                    <dt>Why it matters</dt>
+                    <dd>Pinpoints timing for affordability interventions and messaging.</dd>
+                  </div>
+                </dl>
+              </article>
+            </div>
+          </section>
+
+          <section id="findings" class="section" aria-labelledby="findings-title">
+            <header class="section__header">
+              <p class="section__eyebrow">Findings</p>
+              <h2 id="findings-title">Where the analysis lands</h2>
+              <p class="section__intro">Executive-ready takeaways distill the borough dynamics for quick decisions.</p>
+            </header>
+            <div class="section__body">
+              <ul class="bullet-list" data-findings-list>
+                <li data-summary-item="0">Manhattan's median rent remained 40–50% higher than other boroughs throughout the study period.</li>
+                <li data-summary-item="1">Brooklyn and Queens showed the steepest acceleration post-2012, with compound annual growth rates exceeding 5%.</li>
+                <li data-summary-item="2">Transit-rich neighborhoods consistently commanded rent premiums of 15–25% above borough averages.</li>
+                <li>Two major rent surge periods: 2012–2014 (post-recession recovery) and 2021–2022 (pandemic rebound).</li>
+                <li>Wage growth lagged rent increases by an average of 2.3 percentage points annually from 2015–2024.</li>
+              </ul>
+            </div>
+          </section>
+
+          <section id="limitations" class="section" aria-labelledby="limitations-title">
+            <header class="section__header">
+              <p class="section__eyebrow">Limitations</p>
+              <h2 id="limitations-title">Constraints &amp; next steps</h2>
+              <p class="section__intro">Transparency keeps the work credible and ready for stakeholder scrutiny.</p>
+            </header>
+            <div class="section__body">
+              <ul class="bullet-list">
+                <li>Borough aggregates mask intra-borough heterogeneity and building-level variation.</li>
+                <li>Income estimates lag real-time shocks; correlations may understate short-term rent swings.</li>
+                <li>Transit index excludes bus-only corridors and commuter rail accessibility.</li>
+                <li>Zoning changes, new housing permits, and migration flows were out of scope but merit follow-up.</li>
+              </ul>
+            </div>
+          </section>
+
+          <section id="references" class="section" aria-labelledby="references-title">
+            <header class="section__header">
+              <p class="section__eyebrow">References</p>
+              <h2 id="references-title">Source register</h2>
+              <p class="section__intro">Every insight maps to a public dataset with reproducible joins.</p>
+            </header>
+            <div class="table-card" data-observe>
+              <table>
+                <thead>
+                  <tr>
+                    <th scope="col">Source</th>
+                    <th scope="col">Link</th>
+                    <th scope="col">Period</th>
+                    <th scope="col">Granularity</th>
+                    <th scope="col">License</th>
+                    <th scope="col">Notes</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>NYC Open Data: Housing Indicators</td>
+                    <td><a href="https://data.cityofnewyork.us/" target="_blank" rel="noopener">Portal</a></td>
+                    <td>2010–2024</td>
+                    <td>Borough, annual</td>
+                    <td>Open Data Commons</td>
+                    <td>Median asking rent and unit counts.</td>
+                  </tr>
+                  <tr>
+                    <td>ACS 1-year Estimates (Table B19013)</td>
+                    <td><a href="https://data.census.gov/" target="_blank" rel="noopener">data.census.gov</a></td>
+                    <td>2010–2024</td>
+                    <td>Borough, annual</td>
+                    <td>Public domain</td>
+                    <td>Median household income, CPI-adjusted.</td>
+                  </tr>
+                  <tr>
+                    <td>Bureau of Labor Statistics QCEW</td>
+                    <td><a href="https://www.bls.gov/cew/" target="_blank" rel="noopener">bls.gov/cew</a></td>
+                    <td>2015–2024</td>
+                    <td>City, quarterly</td>
+                    <td>Public domain</td>
+                    <td>Average wages, converted to borough-weighted estimates.</td>
+                  </tr>
+                  <tr>
+                    <td>MTA GTFS feeds</td>
+                    <td><a href="https://new.mta.info/developers" target="_blank" rel="noopener">new.mta.info/developers</a></td>
+                    <td>2010–2024</td>
+                    <td>Station, weekly</td>
+                    <td>Open Government</td>
+                    <td>Transit proximity index inputs.</td>
+                  </tr>
+                  <tr>
+                    <td>NYC Department of Buildings Permits</td>
+                    <td><a href="https://www1.nyc.gov/site/buildings/index.page" target="_blank" rel="noopener">nyc.gov/buildings</a></td>
+                    <td>2010–2024</td>
+                    <td>Permit, daily</td>
+                    <td>Open Data Commons</td>
+                    <td>Filtered for residential change signals.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section id="how-i-built-this" class="section" aria-labelledby="how-title">
+            <header class="section__header">
+              <p class="section__eyebrow">Build log</p>
+              <h2 id="how-title">How the project ships</h2>
+              <p class="section__intro">A quick tour through the pipeline, tooling, and delivery decisions.</p>
+            </header>
+            <div class="section__body grid-two">
+              <div>
+                <h3>Data sources</h3>
+                <ul class="bullet-list">
+                  <li>NYC Open Data (Housing Indicators, 2010–2024)</li>
+                  <li>ACS 1-year Estimates (Median household income)</li>
+                  <li>BLS QCEW (Quarterly wage data)</li>
+                  <li>MTA GTFS feeds (Transit proximity)</li>
+                  <li>DOB Permits (Residential changes)</li>
+                </ul>
+              </div>
+              <div>
+                <h3>Tech stack</h3>
+                <ul class="bullet-list">
+                  <li><strong>Python</strong> - ETL, feature engineering, diagnostics</li>
+                  <li><strong>DuckDB</strong> - Fast analytical queries on snapshots</li>
+                  <li><strong>Chart.js</strong> - Premium visuals with custom styling</li>
+                  <li><strong>Vanilla JS modules</strong> - Data orchestration and accessibility checks</li>
+                  <li><strong>CSS Custom Properties</strong> - Design system &amp; responsive spacing</li>
+                </ul>
+              </div>
+              <div>
+                <h3>Pipeline milestones</h3>
+                <ul class="bullet-list">
+                  <li>Reconciled ACS and NYC Open Data geography keys with 99.8% coverage.</li>
+                  <li>Automated CPI adjustments and rent gap calculations per borough-year.</li>
+                  <li>Generated insight payloads powering this static experience.</li>
+                </ul>
+              </div>
+              <div>
+                <h3>Breakthrough</h3>
+                <p>
+                  Borough-level tract reconciliation turned two incompatible datasets into a seamless timeline. Result: continuous
+                  year-over-year comparisons without manual patching.
+                </p>
+              </div>
+            </div>
+          </section>
+        </main>
+
+        <aside class="meta-column" aria-label="Project metadata">
+          <div class="meta-card">
+            <h2>Data pipeline</h2>
+            <p class="meta-card__lead">How data moves from raw feeds to this interface.</p>
+            <dl class="meta-card__list">
+              <div>
+                <dt>Sources</dt>
+                <dd>Nightly pulls from NYC Open Data, ACS, BLS QCEW, MTA GTFS, and DOB permits.</dd>
+              </div>
+              <div>
+                <dt>Transformations</dt>
+                <dd>CPI normalization to 2024 USD, transit index scoring, outlier trimming, and DuckDB joins.</dd>
+              </div>
+              <div>
+                <dt>Deliverables</dt>
+                <dd>Structured JSON payloads (<code>viz_payload.json</code> &amp; <code>derived_summary.json</code>) consumed directly by the UI.</dd>
+              </div>
+            </dl>
+          </div>
+          <div class="meta-card">
+            <h2>Analytical toolkit</h2>
+            <ul class="meta-card__list">
+              <li><strong>Python &amp; DuckDB</strong> for ETL and analytical modeling.</li>
+              <li><strong>Pandas</strong> for data hygiene, QA, and feature engineering.</li>
+              <li><strong>Chart.js</strong> with custom theming for premium dark charts.</li>
+              <li><strong>Accessibility-first UI</strong> with semantic structure and keyboard-friendly tabs.</li>
+            </ul>
+          </div>
+          <div class="meta-card">
+            <h2>Executive snapshot</h2>
+            <p>The portfolio story in a few lines.</p>
+            <ul class="meta-card__list">
+              <li data-narrative="growth">Manhattan maintains the highest monthly rent while Staten Island remains most affordable.</li>
+              <li data-narrative="multiples">Each borough shows a steady climb with Brooklyn and Queens accelerating fastest after 2012.</li>
+              <li data-narrative="correlation">Rent tracks income, but high-transit borough-years sit above the trend, tightening budgets.</li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+
+      <footer class="site-footer">
+        <p><strong>InsightLab</strong> · Designed, engineered, and analyzed by Dominic Minischetti.</p>
+        <p>Independent study · © 2025</p>
+        <a class="site-footer__link" href="https://minischetti.org" target="_blank" rel="noopener">Explore more projects →</a>
+      </footer>
+    </div>
+    <!--
+      Refresh summary (2025-10):
+        • index.html - rebuilt layout with central narrative column, chart cards, and metadata sidebar.
+        • css/insightlab.css - new dark design system with tokens, responsive grid, and reduced-motion safe reveals.
+        • js/main.js - single-module data loader + Chart.js renderer with accessibility safeguards.
+      Remaining TODO: monitor bundle size if additional visuals are added; consider extracting shared tokens for study.html.
+    -->
+  </body>
+</html>

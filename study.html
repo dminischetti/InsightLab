@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>InsightLab: NYC Housing Dynamics - Case Study</title>
+    <meta
+      name="description"
+      content="Full-stack narrative, methods, and technical appendix for the InsightLab NYC housing dynamics case study."
+    />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://dminischetti.github.io/insightlab/study.html" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="InsightLab: NYC Housing Dynamics - Case Study" />
+    <meta
+      property="og:description"
+      content="Full-stack narrative, methods, and technical appendix for the InsightLab NYC housing dynamics case study."
+    />
+    <meta property="og:url" content="https://dminischetti.github.io/insightlab/study.html" />
+    <meta property="og:image" content="https://dminischetti.github.io/insightlab/assets/logo.svg" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="InsightLab: NYC Housing Dynamics - Case Study" />
+    <meta
+      name="twitter:description"
+      content="Full-stack narrative, methods, and technical appendix for the InsightLab NYC housing dynamics case study."
+    />
+    <meta name="theme-color" content="#0b1221" />
+    <link rel="icon" type="image/svg+xml" href="./assets/logo.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./css/style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js" defer></script>
+    <script type="module" src="./js/main.js" defer></script>
+  </head>
+  <body data-page="study">
+    <div class="page-shell">
+      <div id="progress-bar" aria-hidden="true"></div>
+      <a class="skip-link" href="#main">Skip to main content</a>
+
+      <header class="site-hero" role="banner">
+        <div class="content-wrap">
+          <div class="hero-grid">
+            <div class="hero-panel" data-animate>
+              <div class="hero-badge-row">
+                <span class="hero-badge">Case study companion</span>
+              </div>
+              <h1>InsightLab: NYC Housing Dynamics</h1>
+              <p class="hero-lead">
+                End-to-end documentation of the pipeline, analytical methods, and engineering decisions powering the portfolio
+                experience. Built to show how I move from raw feeds to trustworthy product-ready insights.
+              </p>
+              <div class="hero-summary">
+                <div class="summary-card">
+                  <strong>Elevator pitch</strong>
+                  <p>
+                    Exploring how income, transit, and permitting shaped NYC rent dynamics over fourteen years-designed by a
+                    backend engineer who also leads analytical storytelling.
+                  </p>
+                </div>
+                <div class="summary-card">
+                  <strong>Quick actions</strong>
+                  <p>
+                    <a href="./index.html">Return to the narrative</a> or use the anchored navigation below to jump to
+                    methodology, results, and the technical appendix.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <aside class="hero-aside" data-animate>
+              <div class="stat-grid">
+                <div class="stat-card">
+                  <span class="stat-label">What this page covers</span>
+                  <p>
+                    Executive summary, tech stack, data methodology, results commentary, interpretation, appendix, SQL outline,
+                    and next steps for future iterations.
+                  </p>
+                </div>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </header>
+
+      <main id="main">
+        <div class="content-wrap">
+          <nav class="mini-toc" aria-label="Study navigation" data-animate>
+            <ul>
+              <li><a href="#executive-summary">Executive summary</a></li>
+              <li><a href="#tech-data">Tech &amp; data</a></li>
+              <li><a href="#methodology">Data &amp; methodology</a></li>
+              <li><a href="#results">Results</a></li>
+              <li><a href="#interpretation">Interpretation</a></li>
+              <li><a href="#appendix">Technical appendix</a></li>
+              <li><a href="#sql">SQL equivalent</a></li>
+              <li><a href="#next">What I'd do next</a></li>
+            </ul>
+          </nav>
+        </div>
+
+        <section id="executive-summary" class="section-block" aria-labelledby="exec-title">
+          <div class="content-wrap">
+            <div class="section-header" data-animate>
+              <p class="section-eyebrow">Executive summary</p>
+              <h2 id="exec-title">Three truths that persist across personas</h2>
+              <p class="section-lead">
+                Findings auto-refresh with the interactive controls on the main page. Here they are in plain text for quick reuse
+                in decks or briefs.
+              </p>
+            </div>
+            <div class="section-body" data-animate>
+              <ul class="micro-list">
+                <li data-summary-item="0">Loading growth insight…</li>
+                <li data-summary-item="1">Loading spread insight…</li>
+                <li data-summary-item="2">Loading correlation insight…</li>
+              </ul>
+              <div class="summary-card">
+                <strong>Key takeaway</strong>
+                <p class="key-takeaway" role="note">Rent acceleration is most intense in Brooklyn and the Bronx, reshaping affordability narratives.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="tech-data" class="section-block" aria-labelledby="tech-data-title">
+          <div class="content-wrap">
+            <div class="section-header" data-animate>
+              <p class="section-eyebrow">Tech &amp; data stack</p>
+              <h2 id="tech-data-title">Engineering the product surface</h2>
+              <p class="section-lead">Production pipelines and visualization patterns that make the analysis ship.</p>
+            </div>
+            <div class="section-body fullstack-grid" data-animate>
+              <div class="fullstack-card">
+                <span>Backend &amp; storage</span>
+                <p>Python ETL services hydrate DuckDB/PostgreSQL schemas with rent, income, and environmental indicators.</p>
+              </div>
+              <div class="fullstack-card">
+                <span>Spatial context</span>
+                <p>GeoJSON borough boundaries enable joins to subway catchments and environmental overlays.</p>
+              </div>
+              <div class="fullstack-card">
+                <span>Analytical surfacing</span>
+                <p>Modular Chart.js views and narrative helpers mirror internal product dashboards.</p>
+              </div>
+              <div class="summary-card">
+                <strong>Takeaway</strong>
+                <p role="note">Engineering, spatial data, and storytelling converge so stakeholders see metrics and mechanism together.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="methodology" class="section-block" aria-labelledby="method-title">
+          <div class="content-wrap">
+            <div class="section-header" data-animate>
+              <p class="section-eyebrow">Methodology</p>
+              <h2 id="method-title">How the dataset is curated</h2>
+              <p class="section-lead">A detailed view of sources, cleaning rules, dictionary, and caveats.</p>
+            </div>
+            <div class="section-body" data-animate>
+              <div class="summary-card">
+                <strong>Sources</strong>
+                <p>
+                  The replicated CSV blends historic medians from NYC Department of Housing Preservation &amp; Development datasets
+                  with American Community Survey income bands. Subway access scores synthesize MTA station density per borough,
+                  while air quality proxies derive from NYC DOHMH AQI reports.
+                </p>
+              </div>
+              <div class="summary-card">
+                <strong>Dictionary</strong>
+                <ul class="micro-list">
+                  <li><strong>median_rent:</strong> Monthly median asking rent in USD.</li>
+                  <li><strong>median_income:</strong> Annual median household income in USD.</li>
+                  <li><strong>subway_access_score:</strong> 0–100 index for subway proximity and frequency.</li>
+                  <li><strong>air_quality_index:</strong> AQI-like measure; lower is better air quality.</li>
+                </ul>
+              </div>
+              <div class="summary-card">
+                <strong>Cleaning rules</strong>
+                <p>
+                  Type casting ensures numeric comparison. Rows missing rent or income are dropped. Air quality is inverted in
+                  regression to capture cleaner-air premium.
+                </p>
+              </div>
+              <div class="summary-card">
+                <strong>Caveats</strong>
+                <p>
+                  Borough medians smooth intra-borough diversity. Values represent a static snapshot for reproducible analysis
+                  rather than live operational feeds.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="results" class="section-block" aria-labelledby="results-title">
+          <div class="content-wrap">
+            <div class="section-header" data-animate>
+              <p class="section-eyebrow">Results</p>
+              <h2 id="results-title">Charts with narrative context</h2>
+              <p class="section-lead">The same visuals as the landing experience, now paired with accessibility-first summaries.</p>
+            </div>
+            <div class="section-body insight-grid" data-animate>
+              <article class="insight-panel">
+                <header class="panel-header">
+                  <p class="panel-eyebrow">Bar view</p>
+                  <h3>Median rent leaderboard</h3>
+                  <p data-narrative="growth" class="panel-summary"></p>
+                </header>
+                <div class="chart-surface">
+                  <canvas id="chart-bar" aria-label="Median rent per borough"></canvas>
+                </div>
+                <div class="analysis-insights">
+                  <h4>Takeaway</h4>
+                  <p data-takeaway="bar">Loading rent takeaway…</p>
+                </div>
+              </article>
+
+              <article class="insight-panel">
+                <header class="panel-header">
+                  <p class="panel-eyebrow">Line view</p>
+                  <h3>Longitudinal rent trends</h3>
+                  <p class="panel-summary">Toggle boroughs in the filter to isolate specific trajectories and recession impacts.</p>
+                </header>
+                <div class="chart-surface">
+                  <canvas id="chart-line" aria-label="Rent trajectories"></canvas>
+                </div>
+                <div class="analysis-insights">
+                  <h4>Takeaway</h4>
+                  <p data-takeaway="line">Loading trajectory takeaway…</p>
+                </div>
+              </article>
+
+              <article class="insight-panel">
+                <header class="panel-header">
+                  <p class="panel-eyebrow">Scatter view</p>
+                  <h3>Income vs rent, subway bubble</h3>
+                  <p data-narrative="correlation" class="panel-summary"></p>
+                </header>
+                <div class="chart-surface">
+                  <canvas id="chart-scatter" aria-label="Scatter plot of rent vs income"></canvas>
+                </div>
+                <div class="analysis-insights">
+                  <h4>Takeaway</h4>
+                  <p data-takeaway="scatter">Loading correlation takeaway…</p>
+                </div>
+              </article>
+
+              <article class="insight-panel">
+                <header class="panel-header">
+                  <p class="panel-eyebrow">Heatmap view</p>
+                  <h3>Heatmap pulses</h3>
+                  <p data-narrative="disparity" class="panel-summary"></p>
+                </header>
+                <div class="chart-surface">
+                  <canvas id="chart-heatmap" width="900" height="420" aria-label="Heatmap of rent dynamics"></canvas>
+                </div>
+                <div class="analysis-insights">
+                  <h4>Takeaway</h4>
+                  <p data-takeaway="heatmap">Loading volatility takeaway…</p>
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section id="interpretation" class="section-block" aria-labelledby="interpretation-title">
+          <div class="content-wrap">
+            <div class="section-header" data-animate>
+              <p class="section-eyebrow">Interpretation</p>
+              <h2 id="interpretation-title">Why the trends matter</h2>
+              <p class="section-lead">Use these notes when presenting the dataset to leadership or clients.</p>
+            </div>
+            <div class="section-body" data-animate>
+              <div class="summary-card">
+                <strong>Regression narrative</strong>
+                <p data-narrative="regression">Regression narrative loading…</p>
+              </div>
+              <div class="summary-card">
+                <strong>Disparity insight</strong>
+                <p class="chart-summary">Transit access remains the largest consistent driver of rent premiums, even when wages adjust.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="appendix" class="section-block" aria-labelledby="appendix-title">
+          <div class="content-wrap">
+            <div class="section-header" data-animate>
+              <p class="section-eyebrow">Technical appendix</p>
+              <h2 id="appendix-title">What sits behind the UI</h2>
+              <p class="section-lead">Repository structure, notebooks, and automation scripts.</p>
+            </div>
+            <div class="section-body" data-animate>
+              <pre>
+insightlab/
+│   ├─ data/                     # CSV + JSON payloads
+│   ├─ notebooks/                # Reproducible analyses & QA
+│   ├─ js/
+│   │   ├─ main.js               # Entry point wiring modules together
+│   │   └─ modules/
+│   │       ├─ data.js           # Payload hydration & period config
+│   │       ├─ theme.js          # Theme toggling + meta updates
+│   │       ├─ metrics.js        # KPI calculations & counters
+│   │       └─ charts/           # Chart-specific factories (bar, line, scatter, heatmap)
+│   ├─ css/style.css             # Design system & layout
+│   └─ tools/derive.py           # Pipeline automation helper
+              </pre>
+            </div>
+          </div>
+        </section>
+
+        <section id="sql" class="section-block" aria-labelledby="sql-title">
+          <div class="content-wrap">
+            <div class="section-header" data-animate>
+              <p class="section-eyebrow">SQL equivalent</p>
+              <h2 id="sql-title">Declarative version of the core aggregation</h2>
+              <p class="section-lead">Quick sketch of the DuckDB query used to summarize borough metrics.</p>
+            </div>
+            <div class="section-body" data-animate>
+              <pre>
+WITH rents AS (
+  SELECT borough, year, median_rent
+  FROM nyc_rent
+),
+income AS (
+  SELECT borough, year, median_income
+  FROM acs_income
+)
+SELECT
+  r.borough,
+  r.year,
+  AVG(r.median_rent) AS rent_usd,
+  AVG(i.median_income) AS income_usd,
+  AVG(t.subway_access_score) AS transit_score
+FROM rents r
+JOIN income i USING (borough, year)
+JOIN transit_scores t USING (borough, year)
+GROUP BY 1, 2
+ORDER BY 1, 2;
+              </pre>
+            </div>
+          </div>
+        </section>
+
+        <section id="next" class="section-block" aria-labelledby="next-title">
+          <div class="content-wrap">
+            <div class="section-header" data-animate>
+              <p class="section-eyebrow">What I'd do next</p>
+              <h2 id="next-title">Roadmap for a production deployment</h2>
+              <p class="section-lead">Where I'd invest with more time or stakeholder demand.</p>
+            </div>
+            <div class="section-body" data-animate>
+              <ul class="micro-list">
+                <li>Extend to tract-level granularity with performance budgets for the front-end.</li>
+                <li>Automate nightly refresh with GitHub Actions and cache-busting deployments.</li>
+                <li>Add alerting hooks when volatility breaches defined affordability thresholds.</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="site-footer">
+        <div class="content-wrap footer-grid">
+          <strong>InsightLab</strong>
+          <p>Designed, engineered, and analyzed by Dominic Minischetti.</p>
+          <p>Independent study • © 2025</p>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>
